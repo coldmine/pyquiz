@@ -12,6 +12,6 @@ def main():
 	if err:
 		print(err)
 		return
-	print("성공!")
+	print(q.congrats)
 
 main()

@@ -3,7 +3,10 @@
 from collections import namedtuple
 
 question = "두 수를 더한 수를 반환하는 함수를 작성하세요."
+congrats = "게임을 이해하셨군요! 두번째 문제로 넘어가세요."
+
 test = namedtuple("test", "a b want")
+
 tests = [
 	test(a=1, b=2, want=3),
 	test(a=-1, b=1, want=0),
