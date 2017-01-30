@@ -1,6 +1,6 @@
 # coding=utf8
 
-import lv1 as q
+import lv1.q1 as q
 
 def ans(a, b):
 	pass
