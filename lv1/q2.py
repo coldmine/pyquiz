@@ -35,6 +35,15 @@ tests = [
 	),
 ]
 
+def equal(a, b):
+	"""받아들인 두 개의 논리값 리스트가 완전히 동등한지 검사한다."""
+	if len(a) != len(b):
+		return False
+	for i in range(len(a)):
+		if a[i] is not b[i]:
+			return False
+	return True
+
 def sprintBoolList(lst):
 	"""
 	sprintBoolList는 리눅스계열 OS에서 받아들인 논리값 리스트의 항목이 True일 경우
@@ -44,7 +53,7 @@ def sprintBoolList(lst):
 	"""
 	result = []
 	for v in lst:
-		if v:
+		if v is True:
 			if sys.platform in ["linux", "linux2", "darwin"]:
 				result.append("\033[32m{0}\033[0m".format(v))
 			else:
@@ -85,14 +94,14 @@ def answer(func):
 			before = after
 			after = infect(func, before)
 			print("{0}번째 적용 결과: {1}".format(j+1, sprintBoolList(after)))
-			if j == 0 and after != t.first:
+			if j == 0 and not equal(after, t.first):
 				return "실패!\n답변한 함수를 이용해 한번 전염을 시킨 결과:\n\t{0}\n원하는 값:\n\t{1}".format(sprintBoolList(after), sprintBoolList(t.first))
-			if j == 1 and after != t.second:
+			if j == 1 and not equal(after, t.second):
 				return "실패!\n답변한 함수를 이용해 두번째 전염을 시킨 결과:\n\t{0}\n원하는 값:\n\t{1}".format(sprintBoolList(after), sprintBoolList(t.second))
 			# 더이상의 체크는 하지 않고 마지막만 같은지 체크한다.
 			j += 1
 			time.sleep(1)
-		if after != t.last:
+		if not equal(after, t.last):
 			return "실패!\n답변한 함수를 이용해 전염을 시킨 최종결과:\n\t{0}\n원하는 값:\n\t{1}".format(sprintBoolList(after), sprintBoolList(t.last))
 		print("성공!\n")
 		time.sleep(1)
