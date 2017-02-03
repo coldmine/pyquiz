@@ -44,10 +44,11 @@ def equal(a, b):
 			return False
 	return True
 
-def sprintBoolList(lst):
+def toZombieString(lst):
 	"""
-	sprintBoolList는 리눅스계열 OS에서 받아들인 논리값 리스트의 항목이 True일 경우
-	초록색으로 표기한 문자열을 반환한다.
+	toZombieString은 리눅스계열 OS에서 받아들인 논리값 리스트의 항목이
+	True일 경우 (가능하면) 빨간색 "좀비"로 변경하고
+	False일 경우 "사람"으로 변경한 리스트를 문자열 형식으로 반환한다.
 
 	http://stackoverflow.com/questions/2616906/how-do-i-output-coloured-text-to-a-linux-terminal 참고.
 	"""
@@ -55,11 +56,11 @@ def sprintBoolList(lst):
 	for v in lst:
 		if v is True:
 			if sys.platform in ["linux", "linux2", "darwin"]:
-				result.append("\033[32m{0}\033[0m".format(v))
+				result.append("\033[31m좀비\033[0m".format(v))
 			else:
-				result.append(str(v))
+				result.append("좀비")
 		else:
-			result.append(str(v))
+			result.append("사람")
 	return "[" + ", ".join(result) + "]"
 
 def infect(func, before):
@@ -85,7 +86,7 @@ def answer(func):
 	for i, t in enumerate(tests):
 		print("{0}번째 테스트".format(i+1))
 		time.sleep(1)
-		print("시작할 때 상태: {0}".format(sprintBoolList(t.orig)))
+		print("시작할 때 상태: {0}".format(toZombieString(t.orig)))
 		time.sleep(1)
 		j = 0
 		before = []
@@ -93,16 +94,16 @@ def answer(func):
 		while before != after:
 			before = after
 			after = infect(func, before)
-			print("{0}번째 적용 결과: {1}".format(j+1, sprintBoolList(after)))
+			print("{0}번째 적용 결과: {1}".format(j+1, toZombieString(after)))
 			if j == 0 and not equal(after, t.first):
-				return "실패!\n답변한 함수를 이용해 한번 전염을 시킨 결과:\n\t{0}\n원하는 값:\n\t{1}".format(sprintBoolList(after), sprintBoolList(t.first))
+				return "실패!\n답변한 함수를 이용해 한번 전염을 시킨 결과:\n\t{0}\n원하는 값:\n\t{1}".format(toZombieString(after), toZombieString(t.first))
 			if j == 1 and not equal(after, t.second):
-				return "실패!\n답변한 함수를 이용해 두번째 전염을 시킨 결과:\n\t{0}\n원하는 값:\n\t{1}".format(sprintBoolList(after), sprintBoolList(t.second))
+				return "실패!\n답변한 함수를 이용해 두번째 전염을 시킨 결과:\n\t{0}\n원하는 값:\n\t{1}".format(toZombieString(after), toZombieString(t.second))
 			# 더이상의 체크는 하지 않고 마지막만 같은지 체크한다.
 			j += 1
 			time.sleep(1)
 		if not equal(after, t.last):
-			return "실패!\n답변한 함수를 이용해 전염을 시킨 최종결과:\n\t{0}\n원하는 값:\n\t{1}".format(sprintBoolList(after), sprintBoolList(t.last))
+			return "실패!\n답변한 함수를 이용해 전염을 시킨 최종결과:\n\t{0}\n원하는 값:\n\t{1}".format(toZombieString(after), toZombieString(t.last))
 		print("성공!\n")
 		time.sleep(1)
 
