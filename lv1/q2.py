@@ -86,7 +86,7 @@ def answer(func):
 	for i, t in enumerate(tests):
 		print("{0}번째 테스트".format(i+1))
 		time.sleep(1)
-		print("시작할 때 상태: {0}".format(toZombieString(t.orig)))
+		print("시작할 때 상태 : {0}".format(toZombieString(t.orig)))
 		time.sleep(1)
 		j = 0
 		before = []
