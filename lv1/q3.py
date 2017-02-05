@@ -61,6 +61,8 @@ def answer(func):
 			ch2.cooltime -= elapse
 			if ch1.cooltime != 0 and ch2.cooltime != 0:
 				return "실패!\n적어도 둘 중의 하나의 쿨타임이 0이 되어야 합니다. 결과값: ({0}:{1}, {2}:{3})".format(ch1.name, ch1.cooltime, ch2.name, ch2.cooltime)
+			if ch1.cooltime < 0 or ch2.cooltime < 0:
+				return "실패!\n다른 유닛의 공격 시간이 이미 지났습니다: ({0}:{1}, {2}:{3})".format(ch1.name, ch1.cooltime, ch2.name, ch2.cooltime)
 			if t.chars[ai].cooltime != 0:
 				return "실패!\n{0}번 캐릭터가 공격할 차례가 아닙니다.".format(ai)
 			attacker = t.chars[ai]
