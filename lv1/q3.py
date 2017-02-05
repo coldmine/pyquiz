@@ -12,8 +12,8 @@ question = """블리자드에 입사한 여러분은 스타크래프트 팀에 �
 """
 congrats = "와 또 해냈군요! 하지만 다음 문제는 쉽지 않을거에요!"
 
-# char는 캐릭터 정보이다.
 class char:
+	"""char은 캐릭터 정보다."""
 	def __init__(self, name, life, power, interval, sound):
 		self.name = name
 		self.life = life
